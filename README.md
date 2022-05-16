@@ -1,1 +1,1 @@
-# AjaxPractice
+# Ajax연습🔥
