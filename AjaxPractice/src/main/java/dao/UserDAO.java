@@ -25,12 +25,12 @@ public class UserDAO {
 	
 	//생성자 생성
 	
-	public ArrayList<User> UserDAO() {
+	public  UserDAO() {
 		//매핑된 
 	try {
 		
 		//접속 db정보 변수에 담아놓기
-		String dbURL="jdbc:mysql://localhost:3306/testDB";
+		String dbURL="jdbc:mysql://localhost:3306/testdb";
 		String dbID= "java";//연습용이라 간단하게 지음
 		String dbPassword = "java";
 		Class.forName("com.mysql.jdbc.Driver");//드라이버 검색
@@ -45,11 +45,11 @@ public class UserDAO {
 	
 	//서비스로직을 생성할수 있으나 시간상 ajax json 데이터만 뽑아올거기 때문에 
 	public ArrayList <User> search(String userName){
-		String sql= "SELECT * FROM USER WHERE userName Like ?";
+		String sql= "SELECT * FROM user WHERE userName Like ?";
 		ArrayList<User> userList = new ArrayList<User>();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userName);
+			pstmt.setString(1, "%"+userName+"%");
 			rs = pstmt.executeQuery();
 			// 여러개이기때문에 while
 			
@@ -62,13 +62,15 @@ public class UserDAO {
 			 user.setUserEmail(rs.getString(4));
 			 userList.add(user);//user List  에 담기
 			}
-			
+			for(int i=0; i<userList.size();i++) {
+				System.out.println("dao="+userList.get(i).getUserName());
+			}
 			
 		}catch (Exception e) {
 		e.printStackTrace();
 		}
 		
-		return userList; //결과값 반환
+		return userList; //결과값 반환호
 	}
 	
 	
